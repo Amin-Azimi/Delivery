@@ -1,7 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 function Layout() {
     return (
-      <div>
+      <div className="page-container">
         <nav>
           <ul>
             <li>

@@ -1,15 +1,17 @@
 import { useFetchDeliveriesQuery } from "../services/delivery.api";
 import { Link } from "react-router-dom";
+import SummaryInfo from "./Deliveries/summary.info";
 
 export default function Deliveries() {
   const { data = [], isFetching } = useFetchDeliveriesQuery();
 
   return (
-    <div>
+    <div className="table table-data2">
       {isFetching ? (
-        <h1>loading....</h1>
+        <div className="spinner-border" role="status"> <h1>loading....</h1></div>
+        
       ) : (
-        <table>
+        <table className="table table-data2">
           <thead>
             <tr>
               <th>Id</th>
@@ -18,14 +20,7 @@ export default function Deliveries() {
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <Link to={"/delivery/" + item.id}>{item.id}</Link>
-                </td>
-                <td>
-                  <Link to={"/delivery/" + item.id}>{item.customer}</Link>
-                </td>
-              </tr>
+              <SummaryInfo  id={item.id} customer={item.customer} />
             ))}
           </tbody>
         </table>

@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice,PayloadAction } from "@reduxjs/toolkit";
 import DeliveryModel from "../models/delivery.model";
-import { RootState, AppThunk } from '../../../app/store';
+import { RootState } from '../../../app/store';
 import DeliveryPost from "../models/delivery.post.model";
 
-interface DeliveryState {
+export interface DeliveryState {
     status : 'idle' | 'loading' | 'failed' | 'success',
     selectedDelivery: DeliveryModel,
     error : any
   }
   const initialState : DeliveryState={
       status :"idle",
-      selectedDelivery:<DeliveryModel>{},
+      selectedDelivery:{} as DeliveryModel,
       error :null
   }
   
@@ -50,7 +50,7 @@ interface DeliveryState {
           .addCase(finishDelivery.fulfilled,(state,action)=>{
               state.status = 'success';
               console.log('success');
-              state.selectedDelivery = <DeliveryModel>{};
+              state.selectedDelivery = {} as DeliveryModel;
           })
           .addCase(finishDelivery.rejected,(state,action)=>{
               state.status = 'failed';

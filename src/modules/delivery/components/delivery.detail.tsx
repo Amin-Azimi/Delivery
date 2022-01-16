@@ -10,6 +10,7 @@ import {
 } from "../services/delivery.slice";
 import FinishStatus from "../models/finish.status.model";
 import DeliveryPost from "../models/delivery.post.model";
+import Detail from "./DeliveryDetail/details";
 
 function DeliveryDetail() {
   const dispatch = useAppDispatch();
@@ -20,18 +21,12 @@ function DeliveryDetail() {
   const { data, isFetching } = useFetchADeliveryQuery(id);
   const activeDelivery = useAppSelector(selectedDelivery);
 
-  useEffect(() => {
-    console.log("has active?", activeDelivery, currnetDelivery);
-  }, []);
-  useEffect(() => {
-    console.log("has 222?", activeDelivery, currnetDelivery);
-  }, [currnetDelivery]);
-
   const handelFinishDeliveryClick=(status : FinishStatus) =>{
+    const delivery: DeliveryModel = data as DeliveryModel;
     const deliveryPost : DeliveryPost={
-        deliveryId : data?.id as string,
-        latitude : data?.latitude as number,
-        longitude : data?.longitude as number,
+        deliveryId : delivery.id ,
+        latitude : delivery.latitude ,
+        longitude : delivery.longitude ,
         status : status
     };
     dispatch(finishDelivery(deliveryPost));
@@ -41,28 +36,25 @@ function DeliveryDetail() {
       {isFetching ? (
         <h1>loading....</h1>
       ) : (
+        data?
         <>
           <div className="App">
-            <h2>Detaisl of delivery {data?.id}</h2>
-            <p>Id: {data?.id}</p>
-            <p>Customer: {data?.customer}</p>
-            <p>address: {data?.address}</p>
-            <p>city: {data?.city}</p>
-            <p>latitude: {data?.latitude}</p>
-            <p>longitude: {data?.longitude}</p>
-          </div>
+          <Detail address={data.address } city={data.city} 
+          customer={data.customer} id={data.id} latitude={data.latitude} longitude={data.longitude}
+          zipCode={data.zipCode} />
+
           <div>
             {activeDelivery?.id ? (
               activeDelivery.id === id ? (
                 <div>
-                    <button onClick={() => handelFinishDeliveryClick(FinishStatus.Delivered)}>Delivered</button>
-                    <button onClick={() => handelFinishDeliveryClick(FinishStatus.UnDelivered)}>Not Delivered!!</button>
+                    <button type="button" className="btn btn-success" onClick={() => handelFinishDeliveryClick(FinishStatus.Delivered)}>Delivered</button>
+                    <button type="button" className="btn btn-danger" onClick={() => handelFinishDeliveryClick(FinishStatus.UnDelivered)}>Not Delivered!!</button>
                 </div>
               ) : (
-                <span> Has active delivery with Id {activeDelivery?.id}</span>
+                <span> Has active delivery with Id {activeDelivery.id}</span>
               )
             ) : (
-              <button
+              <button type="button" className="btn btn-primary"
                 onClick={() =>
                   dispatch(setActiveDelivery(data as DeliveryModel))
                 }
@@ -71,7 +63,9 @@ function DeliveryDetail() {
               </button>
             )}
           </div>
-        </>
+          </div>
+        </>:
+        <h3>Error in loading</h3>
       )}
     </>
   );
