@@ -1,60 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-import { Delivery } from './features/delivery/Delivery';
+import {
+    Routes,
+    Route
+} from 'react-router-dom';
+import About from './common/components/about';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <Delivery/>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+import Home from './common/components/home';
+import Layout from './common/components/layout';
+import Deliveries  from './features/delivery/components/Deliveries';
+import DeliveryDetail from './features/delivery/components/delivery.detail';
+
+function App(){
+  return(
+    <Routes>
+      <Route path="/"  element={<Layout />} >
+        <Route index element={<Home/>}/>
+        <Route path="about" element={<About/>}/>
+        <Route  path="deliveris" element={<Deliveries/>} />
+        <Route  path="delivery" >
+          <Route path=":id" element={<DeliveryDetail/>}/>
+        </Route>
+      </Route>
+    </Routes>
   );
 }
-
 export default App;
