@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice,PayloadAction } from "@reduxjs/toolkit";
 import DeliveryModel from "../models/delivery.model";
 import { RootState, AppThunk } from '../../../app/store';
+import DeliveryPost from "../models/delivery.post.model";
 
 interface DeliveryState {
     status : 'idle' | 'loading' | 'failed' | 'success',
@@ -16,16 +17,17 @@ interface DeliveryState {
   //status must be enum
   export const finishDelivery = createAsyncThunk(
       'delivery/postDelivery',
-      async (delivery:DeliveryModel) =>{
+      async (delivery:DeliveryPost) =>{
           try{
-              console.log('delivery finish:',delivery);
-              // const rawResponse= await fetch('https://60e84194673e350017c21844.mockapi.io/api/finishDelivery',{
-              //     method: 'POST',
-              //     headers:{
-              //         'Content-Type': 'application/json'
-              //     },
-              //     body : JSON.stringify({deliveryId:DeliveryId,status:status,latitude:latitude,longitude:longitude})
-              // })
+            //   console.log('delivery finish:',delivery);
+              const rawResponse= await fetch('https://60e84194673e350017c21844.mockapi.io/api/finishDelivery2',{
+                  method: 'POST',
+                  headers:{
+                      'Content-Type': 'application/json'
+                  },
+                  body : JSON.stringify({deliveryId:delivery.deliveryId,status:delivery.status,latitude:delivery.latitude,longitude:delivery.longitude})
+              })
+              return await rawResponse.json();
           }
           catch(error:any){
               throw Error(error)
@@ -47,6 +49,7 @@ interface DeliveryState {
           })
           .addCase(finishDelivery.fulfilled,(state,action)=>{
               state.status = 'success';
+              console.log('success');
               state.selectedDelivery = <DeliveryModel>{};
           })
           .addCase(finishDelivery.rejected,(state,action)=>{
