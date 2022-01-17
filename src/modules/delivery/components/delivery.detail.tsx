@@ -1,4 +1,3 @@
-import {  useState } from "react";
 import { useParams } from "react-router-dom";
 import DeliveryModel from "../models/delivery.model";
 import { useFetchADeliveryQuery } from "../services/delivery.api";

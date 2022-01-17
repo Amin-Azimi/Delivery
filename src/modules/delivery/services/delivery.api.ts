@@ -3,11 +3,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import DeliveryModel from "../models/delivery.model";
 
 
-
+export const serivceUrl = 'https://60e84194673e350017c21844.mockapi.io/api';
 export const deliveryApi = createApi({
     reducerPath:'deliveryApi',
     baseQuery :fetchBaseQuery({
-        baseUrl :'https://60e84194673e350017c21844.mockapi.io/api',
+        baseUrl :serivceUrl,
     })
     ,endpoints(builder){
         return{
