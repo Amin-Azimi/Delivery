@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
-import counterReducer from '../modules/counter/counterSlice';
 import { deliveryApi } from '../modules/delivery/services/delivery.api';
 import deliveryReducer    from '../modules/delivery/services/delivery.slice'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     delivery : deliveryReducer,
     [deliveryApi.reducerPath] : deliveryApi.reducer
   },
