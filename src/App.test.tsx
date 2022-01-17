@@ -1,15 +1,19 @@
-// import React from 'react';
-// import { render } from '@testing-library/react';
-// import { Provider } from 'react-redux';
-// import { store } from './app/store';
-// import App from './App';
+import React from "react";
+import { render,screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-// test('renders learn react link', () => {
-//   const { getByText } = render(
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   );
-
-//   expect(getByText(/home/i)).toBeInTheDocument();
-// });
+test("renders home page", async () => {
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  );
+  const result = screen.getByText (/About/i) ;
+  expect(result).toBeInTheDocument();
+  await screen.findAllByText(/Home/i);
+});

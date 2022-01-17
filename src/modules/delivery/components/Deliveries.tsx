@@ -11,7 +11,7 @@ export default function Deliveries() {
         <div className="spinner-border" role="status"> <h1>loading....</h1></div>
         
       ) : (
-        <table className="table table-data2">
+        <table className="table table-data2" data-testid="delivery-table">
           <thead>
             <tr>
               <th>Id</th>
@@ -20,7 +20,7 @@ export default function Deliveries() {
           </thead>
           <tbody>
             {data.map((item) => (
-              <SummaryInfo  id={item.id} customer={item.customer} />
+              <SummaryInfo  id={item.id} customer={item.customer} key={item.id} />
             ))}
           </tbody>
         </table>

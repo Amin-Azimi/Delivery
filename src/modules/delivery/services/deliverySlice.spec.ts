@@ -1,6 +1,6 @@
 import DeliveryModel from '../models/delivery.model';
 import deliveryReducer, {
-    finishDelivery,selectedDelivery,setActiveDelivery,DeliveryState
+    setActiveDelivery,DeliveryState
 } from './delivery.slice'
 
 describe('delivery reducer',()=>{
@@ -27,7 +27,4 @@ describe('delivery reducer',()=>{
         expect(active.selectedDelivery).toEqual(delivery);
     });
 
-    it('should deliver an active delivery',()=>{
-        // const postSpy = jest.spyOn(fetch,).mockResolvedValueOnce()
-    });
 });

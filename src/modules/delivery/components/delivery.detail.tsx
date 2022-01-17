@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useParams } from "react-router-dom";
 import DeliveryModel from "../models/delivery.model";
 import { useFetchADeliveryQuery } from "../services/delivery.api";
@@ -15,9 +15,6 @@ import Detail from "./DeliveryDetail/details";
 function DeliveryDetail() {
   const dispatch = useAppDispatch();
   let { id } = useParams<"id">();
-  const [currnetDelivery, setCurrentDelivery] = useState<DeliveryModel>(
-    useAppSelector(selectedDelivery)
-  );
   const { data, isFetching } = useFetchADeliveryQuery(id);
   const activeDelivery = useAppSelector(selectedDelivery);
 
@@ -38,7 +35,7 @@ function DeliveryDetail() {
       ) : (
         data?
         <>
-          <div className="App">
+          <div className="App"  data-testid="delivery-information">
           <Detail address={data.address } city={data.city} 
           customer={data.customer} id={data.id} latitude={data.latitude} longitude={data.longitude}
           zipCode={data.zipCode} />
