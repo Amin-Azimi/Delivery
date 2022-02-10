@@ -27,6 +27,7 @@ function DeliveryDetail() {
     };
     dispatch(finishDelivery(deliveryPost));
   }
+  
   return (
     <>
       {isFetching ? (
